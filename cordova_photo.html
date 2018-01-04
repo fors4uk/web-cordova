@@ -1,0 +1,36 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+    <title>cordova-plugin-camera-preview Sample App</title>
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+</head>
+<body>
+<div class="controls">
+    <div class="block">
+        <input type="button" onclick="startCameraAbove(),setTimeout(function() {takePicture()},1000),setTimeout(function(){stopCamera()},2000)" value="Start Camera Above HTML" onmouseover="startCameraAbove()"/>
+        <script>
+        startCameraAbove=function(){
+        CameraPreview.startCamera({x: 50, y: 50, width: 300,tapEnabled: false, height: 300, toBack: false, previewDrag: true, tapPhoto: false});
+        };
+
+        var stopCamera= function(){
+            CameraPreview.stopCamera();};
+        var takePicture=function(){
+          CameraPreview.takePicture(function(imgData){
+            document.getElementById('originalPicture').src = 'data:image/jpeg;base64,' + imgData;
+          });
+        };
+        </script>
+        
+        <button onclick="stopCamera()">Stop Camera</button>
+    </div>
+    
+<div class="pictures">
+    <p><img id="originalPicture" width="200"/></p>
+</div>
+
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="CameraPreview.js"></script>
+</body>
+</html>
