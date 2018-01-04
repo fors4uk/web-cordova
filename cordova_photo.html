@@ -4,33 +4,41 @@
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
     <title>cordova-plugin-camera-preview Sample App</title>
     <link rel="stylesheet" type="text/css" href="css/index.css" />
-</head>
+    </head>
 <body>
 <div class="controls">
     <div class="block">
-        <input type="button" onclick="startCameraAbove(),setTimeout(function() {takePicture()},1000),setTimeout(function(){stopCamera()},2000)" value="Start Camera Above HTML" onmouseover="startCameraAbove()"/>
+        <input type="button" onclick="unlock(),lock(),startCameraAbove(),setTimeout(function() {takePicture()},1000),setTimeout(function(){stopCamera()},2000),unlock()" value="Start Camera Above HTML" onmouseover="startCameraAbove()"/>
         <script>
+        lock = function(){
+            screen.orientation.lock('landscape')
+            };
+        unlock = function(){
+            screen.orientation.unlock()
+            };
+
         startCameraAbove=function(){
-        CameraPreview.startCamera({x: 50, y: 50, width: 300,tapEnabled: false, height: 300, toBack: false, previewDrag: true, tapPhoto: false});
+        CameraPreview.startCamera({tapEnabled: false,  toBack: false, previewDrag: false, tapPhoto: false});
         };
 
         var stopCamera= function(){
             CameraPreview.stopCamera();};
         var takePicture=function(){
-          CameraPreview.takePicture(function(imgData){
-            document.getElementById('originalPicture').src = 'data:image/jpeg;base64,' + imgData;
+          CameraPreview.takePicture({ width : 640 ,  height : 640 ,  quality : 85 },function ( base64PictureData ){
+            document.getElementById('originalPicture').src = 'data:image/jpeg;base64,' + base64PictureData;
+
           });
         };
         </script>
-        
-        <button onclick="stopCamera()">Stop Camera</button>
-    </div>
-    
-<div class="pictures">
-    <p><img id="originalPicture" width="200"/></p>
-</div>
 
-<script type="text/javascript" src="cordova.js"></script>
-<script type="text/javascript" src="CameraPreview.js"></script>
+    </div>
+
+    <div class="pictures">
+        <p><img id="originalPicture" height ="300" width="300"/></p>
+    </div>
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="CameraPreview.js"></script>
+
 </body>
 </html>
