@@ -16,7 +16,7 @@ $(function(){
                    CameraPreview.takePicture(
                         function ( base64PictureData ){
                                 imageData = 'data:image/jpeg;base64,' + base64PictureData;
-                                $('#originalPicture')[0].src = imageData;
+                                $('#originalPicture').attr('src', imageData);
 
                         }
                     );
