@@ -16,7 +16,8 @@ $(function(){
                    CameraPreview.takePicture(
                         function ( base64PictureData ){
                                 imageData = 'data:image/jpeg;base64,' + base64PictureData;
-                                document.getElementById('originalPicture').src = imageData;
+                                $('#originalPicture')[0].src = imageData;
+
                         }
                     );
                 },3000);
